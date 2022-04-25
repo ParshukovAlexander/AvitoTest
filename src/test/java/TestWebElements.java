@@ -17,10 +17,10 @@ public class TestWebElements {
     public void  setUp(){
         System.setProperty("webdriver.gecko.driver","/geckodriver.exe");
         driver = new FirefoxDriver();
+        driver.get("https://www.avito.ru/permskiy_kray/avtomobili");
     }
     @Test
     public void startTest(){
-        driver.get("https://www.avito.ru/permskiy_kray/avtomobili");//Запуск
         String title = driver.findElement(By.xpath("//*[@class='page-title-text-tSffu page-title-inline-zBPFx']"))
                 .getText();
         Assert.assertEquals("Купить автомобиль в Пермском крае",title);
@@ -28,7 +28,6 @@ public class TestWebElements {
     @Test
     public void PriceTest(){
 //Вводим цену от 10000 до 20000 и сравниваем количество элементов с количеством в названии
-        driver.get("https://www.avito.ru/permskiy_kray/avtomobili");
         String path="/html/body/div[1]/div[4]/div[3]/div[1]/div/div[2]/div[1]/"+
                 "form/div[5]/div/div[2]/div/div/div/div/div/div/";
         driver.findElement(By.xpath(path+"label[1]/input")).sendKeys("10000");
@@ -41,7 +40,6 @@ public class TestWebElements {
     @Test
     public void incorrectNameTest(){
         //Проверка с некоректным названием авто
-        driver.get("https://www.avito.ru/permskiy_kray/avtomobili");
         String incorrectName = "@!REF$*";
         driver.findElement(By.xpath("/html/body/div[1]/div[4]/div[3]/div[1]/div/div[2]/div[1]" +
                 "/form/div[2]/div/div[2]/div/div/div/div/label/input")).sendKeys(incorrectName);
@@ -52,7 +50,6 @@ public class TestWebElements {
     @Test
     public void CountTest(){
         //Подсчет и сравние каоличество авто
-        driver.get("https://www.avito.ru/permskiy_kray/avtomobili");
         driver.findElement(By.xpath("//*[@class='popular-rubricator-button-WWqUy']")).click();
         WebElement table = driver.findElement(By.xpath("/html/body/div[1]/div[4]/div[3]/div[3]/div[1]"));
         List <WebElement> elements = new ArrayList<>(table.findElements(By.xpath("//*[@class='popular-rubricator-count-CX8Mx']")));
